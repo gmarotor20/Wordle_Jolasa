@@ -1,0 +1,43 @@
+:root {
+    --boton: blue;
+    --boton-letra:white;
+    --select-border: black;
+
+
+
+
+}
+
+body {
+            display: grid;
+            place-items: center;
+            height: 50rem;
+            font-family: Arial;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            width: 140px;
+            gap: 6px;
+            text-align: center;
+        }
+
+        select, button {
+            padding: 8px 12px;
+            font-size: 16px;
+            border-radius: 8px;
+        }
+
+        select {
+            border: 1.5px solid var(--select-border);
+            margin-bottom: 8px;
+        }
+
+        button {
+            border: none;
+            background: var(--boton);
+            color: var(--boton-letra);
+            cursor: pointer;
+            margin-top: 6px;
+        }
