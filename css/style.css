@@ -1,43 +1,76 @@
 :root {
     --boton: blue;
     --boton-letra:white;
-    --select-border: black;
-
-
+    --select-border: grey;
 
 
 }
 
-body {
-            display: grid;
-            place-items: center;
-            height: 50rem;
-            font-family: Arial;
-        }
+body { 
+    display: grid;
+    place-items: center;
+    height: 50rem;
+    font-family: Arial;
+}
 
-        form {
-            display: flex;
-            flex-direction: column;
-            width: 140px;
-            gap: 6px;
-            text-align: center;
-        }
+form {
+    display: flex;
+    flex-direction: column;
+    width: 140px;
+    gap: 6px;
+    text-align: center;
+}
 
-        select, button {
-            padding: 8px 12px;
-            font-size: 16px;
-            border-radius: 8px;
-        }
+select, button {
+    padding: 8px 12px;
+    font-size: 16px;
+    border-radius: 8px;
+}
 
-        select {
-            border: 1.5px solid var(--select-border);
-            margin-bottom: 8px;
-        }
+select {
+    border: 1px solid var(--select-border);
+    margin-bottom: 8px;
+}
 
-        button {
-            border: none;
-            background: var(--boton);
-            color: var(--boton-letra);
-            cursor: pointer;
-            margin-top: 6px;
-        }
+button {
+    border: none;
+    background: var(--boton);
+    color: var(--boton-letra);
+    cursor: pointer;
+    margin-top: 6px;
+}
+
+#tablero {
+    display: grid;
+    grid-template-columns: repeat(var(--columnas), 70px);
+    gap: 6px;
+    margin-top: 20px;
+}
+
+.casilla{
+    width: 70px;
+    height: 70px;
+    border: 1px solid var(--select-border);
+    border-radius: 4px;
+
+}
+
+#teclado {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 20px;
+}
+
+.fila-teclado{
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+}
+
+.tecla{
+    border-radius: 6px;
+    background-color: var(--select-border);
+    height: 70px;
+    width: 70px;
+}
