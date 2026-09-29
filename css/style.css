@@ -2,7 +2,7 @@
     --boton: blue;
     --boton-letra:white;
     --select-border: grey;
-
+    --correcto: green;
 
 }
 
@@ -52,7 +52,6 @@ button {
     height: 70px;
     border: 1px solid var(--select-border);
     border-radius: 4px;
-
 }
 
 #teclado {
@@ -71,6 +70,12 @@ button {
 .tecla{
     border-radius: 6px;
     background-color: var(--select-border);
-    height: 70px;
-    width: 70px;
+    height: 60px;
+    width: 80px;
+    
+}
+
+.correcto{
+    background-color: var(--correcto);
+    border-color: var(--correcto);
 }

@@ -9,6 +9,7 @@ const formulario = document.getElementById("formulario");
 
 formulario.addEventListener("submit", async (evento) =>{
     evento.preventDefault();
+    formulario.style.display = "none";
 
     const intentos = document.getElementById("intentos").value;
     const letras = document.getElementById("opciones").value;
@@ -17,13 +18,16 @@ formulario.addEventListener("submit", async (evento) =>{
         intentos: Number(intentos),
         letras: Number(letras)
     };
+
+    state.filaActual = 0;
+    state.intentoActual = "";
     
+    crearTablero(state.intentos, state.letras);
+    crearTeclado(state);
+
     state.palabra = await pedirPalabra(state.letras);
     console.log(state);
-
-    crearTablero(state.intentos, state.letras);
-    crearTeclado();
-  
+ 
 });
  
 function crearTablero(intentos, letras){
@@ -47,7 +51,7 @@ const filasTeclado = [
   ["ENTER", "Z", "X", "C", "V", "B", "N", "M", "DEL"]
 ];
 
-function crearTeclado() {
+function crearTeclado(state) {
     const teclado = document.getElementById("teclado");
     teclado.innerHTML = "";
 
@@ -59,6 +63,41 @@ function crearTeclado() {
             const tecla = document.createElement("button");
             tecla.textContent = letra;
             tecla.className = "tecla";
+
+            tecla.addEventListener("click", () => {
+
+               if (letra === "ENTER") {
+                 if (state.intentoActual.length !== state.letras) {
+                    console.log("faltan letras");
+                    return;
+                }
+
+                console.log("fila completa, lista para comprobar:", state.intentoActual);
+                 return;
+                }
+                
+                
+                if (letra === "DEL") {
+                    if (state.intentoActual.length === 0 ) return;
+
+                    const casillas = document.querySelectorAll(".casilla");
+                    const indice = state.filaActual * state.letras + state.intentoActual.length -1;
+                    casillas[indice].textContent = "";
+
+                    state.intentoActual = state.intentoActual.slice(0, -1);
+                    return;
+                }
+                
+                if (state.intentoActual.length >= state.letras) return;
+
+                const casillas = document.querySelectorAll(".casilla");
+                const indice = state.filaActual * state.letras + state.intentoActual.length;
+                casillas[indice].textContent = letra;
+
+                state.intentoActual += letra;
+                console.log(state.intentoActual);
+            });
+            
             filaDiv.appendChild(tecla);
         });
 
