@@ -3,7 +3,7 @@
     --boton-letra:white;
     --tecla: silver;
     --correcto: green;
-    --existe:yellow;
+    --existe:gold;
     --incorrecto:grey;
 
 }
@@ -50,12 +50,15 @@ button {
     
 }
 
-.casilla{
+.casilla {
     width: 70px;
     height: 70px;
     border: 1px solid var(--tecla);
-    border-radius: 8px;
-
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    font-size: 28px;
+    justify-content: center;
 }
 
 #teclado {

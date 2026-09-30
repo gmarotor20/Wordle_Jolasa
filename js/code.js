@@ -8,6 +8,10 @@ async function pedirPalabra(longitud) {
 }
 
 const formulario = document.getElementById("formulario");
+const divTablero = document.getElementById("tablero");
+const divTeclado = document.getElementById("teclado");
+const mensaje = document.getElementById("mensaje");
+const botonReiniciar = document.getElementById("reiniciar");
 
 formulario.addEventListener("submit", async (evento) =>{
     evento.preventDefault();
@@ -26,6 +30,7 @@ formulario.addEventListener("submit", async (evento) =>{
     state.intentosRealizados = [];
 
     crearTablero(state.intentos, state.letras);
+    state.casillas = document.querySelectorAll(".casilla");
     crearTeclado(state);
 
     state.palabra = await pedirPalabra(state.letras);
@@ -34,15 +39,14 @@ formulario.addEventListener("submit", async (evento) =>{
 });
 
 function crearTablero(intentos, letras){
-    const tablero = document.getElementById("tablero");
-    tablero.innerHTML = "";
-    tablero.style.setProperty("--columnas", letras);
+    divTablero.innerHTML = "";
+    divTablero.style.setProperty("--columnas", letras);
 
     for (let fila = 0; fila < intentos; fila++) {
         for (let col = 0; col < letras; col++) {
             const casilla = document.createElement("div");
             casilla.className = "casilla";
-            tablero.appendChild(casilla);
+            divTablero.appendChild(casilla);
         }
     }
 }
@@ -55,8 +59,7 @@ const filasTeclado = [
 ];
 
 function crearTeclado(state) {
-    const teclado = document.getElementById("teclado");
-    teclado.innerHTML = "";
+    divTeclado.innerHTML = "";
 
     filasTeclado.forEach((fila) => {
         const filaDiv = document.createElement("div");
@@ -75,7 +78,7 @@ function crearTeclado(state) {
             filaDiv.appendChild(tecla);
         });
 
-        teclado.appendChild(filaDiv);
+        divTeclado.appendChild(filaDiv);
     });
 }
 
@@ -106,12 +109,17 @@ function mostrarHistorial() {
     });
 }
 
-function terminarJuego(mensaje, resultado) {
-    document.getElementById("mensaje").textContent = mensaje;
-    document.getElementById("tablero").style.display = "none";
-    document.getElementById("teclado").style.display = "none";
+function terminarJuego(texto, resultado) {
+    mensaje.textContent = texto;
+    divTablero.style.display = "none";
+    divTeclado.style.display = "none";
     guardarPartida(state, resultado);
     mostrarHistorial();
+    botonReiniciar.style.display = "block";
+}
+
+function calcularIndice(state, offset) {
+    return state.filaActual * state.letras + offset;
 }
 
 function procesarTecla(letra, state) {
@@ -122,11 +130,10 @@ function procesarTecla(letra, state) {
         }
 
         const resultado = comprobarIntento(state.intentoActual, state.palabra);
-        const casillas = document.querySelectorAll(".casilla");
 
         for (let i = 0; i < state.letras; i++) {
-            const indice = state.filaActual * state.letras + i;
-            casillas[indice].classList.add(resultado[i]);
+            const indice = calcularIndice(state, i);
+            state.casillas[indice].classList.add(resultado[i]);
 
             const teclaPulsada = document.querySelector(`[data-letra="${state.intentoActual[i]}"]`);
             teclaPulsada.classList.add(resultado[i]);
@@ -153,9 +160,8 @@ function procesarTecla(letra, state) {
     if (letra === "DEL") {
         if (state.intentoActual.length === 0) return;
 
-        const casillas = document.querySelectorAll(".casilla");
-        const indice = state.filaActual * state.letras + state.intentoActual.length - 1;
-        casillas[indice].textContent = "";
+        const indice = calcularIndice(state, state.intentoActual.length - 1);
+        state.casillas[indice].textContent = "";
 
         state.intentoActual = state.intentoActual.slice(0, -1);
         return;
@@ -163,9 +169,8 @@ function procesarTecla(letra, state) {
 
     if (state.intentoActual.length >= state.letras) return;
 
-    const casillas = document.querySelectorAll(".casilla");
-    const indice = state.filaActual * state.letras + state.intentoActual.length;
-    casillas[indice].textContent = letra;
+    const indice = calcularIndice(state, state.intentoActual.length);
+    state.casillas[indice].textContent = letra;
 
     state.intentoActual += letra;
 }
@@ -219,4 +224,8 @@ document.addEventListener("keydown", (evento) => {
     if (tecla.length !== 1) return;
 
     procesarTecla(tecla, state);
+});
+
+botonReiniciar.addEventListener("click", () => {
+    location.reload();
 });
