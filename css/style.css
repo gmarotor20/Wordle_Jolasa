@@ -1,8 +1,10 @@
 :root {
     --boton: blue;
     --boton-letra:white;
-    --select-border: grey;
+    --tecla: silver;
     --correcto: green;
+    --existe:yellow;
+    --incorrecto:grey;
 
 }
 
@@ -45,13 +47,15 @@ button {
     grid-template-columns: repeat(var(--columnas), 70px);
     gap: 6px;
     margin-top: 20px;
+    
 }
 
 .casilla{
     width: 70px;
     height: 70px;
-    border: 1px solid var(--select-border);
-    border-radius: 4px;
+    border: 1px solid var(--tecla);
+    border-radius: 8px;
+
 }
 
 #teclado {
@@ -69,13 +73,24 @@ button {
 
 .tecla{
     border-radius: 6px;
-    background-color: var(--select-border);
+    background-color: var(--tecla);
     height: 60px;
     width: 80px;
     
 }
 
-.correcto{
+.ok{
     background-color: var(--correcto);
     border-color: var(--correcto);
 }
+
+.no{
+    background-color: var(--incorrecto);
+    border-color: var(--incorrecto);
+}
+
+.existe{
+    background-color: var(--existe);
+    border-color: var(--existe);
+}
+
