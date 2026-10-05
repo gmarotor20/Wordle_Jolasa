@@ -12,6 +12,7 @@ Wordle jokoa eginda JavaScript,HTML eta CSSrekin.
    - 🟩: Hitza ondo kokatuta dago.
    - 🟨: Hitza hori dago, baina ez bere posizioan.
    - ⬜: Hitza ez dago.
+     
 6.Irabazi edo saiakerak amaitzean duzunean, ikusiko duzu zure 10 azken jolas emaitzak eta botoi bat jolasteko berriro.
 
 ## Estruktura
